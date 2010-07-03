@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserGro", "UserGro\UserGro.csproj", "{5F2396F2-4CD4-4382-B80F-B99CD370DF63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserGro.Tests", "UserGro.Tests\UserGro.Tests.csproj", "{F8A0E46C-51B3-405A-9188-34A37052A06F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F2396F2-4CD4-4382-B80F-B99CD370DF63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F2396F2-4CD4-4382-B80F-B99CD370DF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F2396F2-4CD4-4382-B80F-B99CD370DF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F2396F2-4CD4-4382-B80F-B99CD370DF63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8A0E46C-51B3-405A-9188-34A37052A06F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8A0E46C-51B3-405A-9188-34A37052A06F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8A0E46C-51B3-405A-9188-34A37052A06F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8A0E46C-51B3-405A-9188-34A37052A06F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
