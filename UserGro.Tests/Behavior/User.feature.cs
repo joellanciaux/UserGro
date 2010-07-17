@@ -239,9 +239,40 @@ testRunner.Then("the change is set in the system");
 #line 114
 testRunner.Given("I am an existing user");
 #line 115
-testRunner.And("I change my profile name");
+testRunner.And("I change my name");
 #line 116
 testRunner.Then("the change is set in the system");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Group administration")]
+        public virtual void GroupAdministration()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Group administration", ((string[])(null)));
+#line 118
+this.ScenarioSetup(scenarioInfo);
+#line 120
+testRunner.Given("I am an existing user");
+#line 121
+testRunner.And("I am a group admin");
+#line 122
+testRunner.When("I need a speaker for a new event");
+#line 123
+testRunner.Then("I can push a notification that I am looking for speakers for that event");
+#line 125
+testRunner.Given("I am an existing user");
+#line 126
+testRunner.And("I am a group admin");
+#line 127
+testRunner.When("I try to create a new event for the group");
+#line 128
+testRunner.Then("the event is added to my events I\'m attending");
+#line 129
+testRunner.And("the group is added to events I\'m admin");
+#line 130
+testRunner.And("it is added to the other group\'s admins events admin");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

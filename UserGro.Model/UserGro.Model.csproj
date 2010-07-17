@@ -42,9 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="Identity.cs" />
+    <Compile Include="IdentityType.cs" />
     <Compile Include="Interfaces\IGroup.cs" />
+    <Compile Include="Interfaces\ILocation.cs" />
     <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="Talk.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
