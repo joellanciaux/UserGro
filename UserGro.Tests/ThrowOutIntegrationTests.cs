@@ -31,7 +31,7 @@ namespace UserGro.Tests
             var group = new Group();
 
             user.Email = "test@somesite.com";
-            user.UserName = "testguy";
+            user.UserName = "testguy" + Guid.NewGuid().ToString();
             user.Name = "Tester Guy";
 
             group.Id = Guid.NewGuid().ToString();
