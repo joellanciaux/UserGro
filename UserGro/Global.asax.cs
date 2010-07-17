@@ -27,7 +27,7 @@ namespace UserGro
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            //this is a test comment.!
             RegisterRoutes(RouteTable.Routes);
         }
     }
