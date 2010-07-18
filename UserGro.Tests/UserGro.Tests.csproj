@@ -61,14 +61,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behavior\GroupAdministration.cs" />
+    <Compile Include="Behavior\GroupAdministrationSteps.cs" />
     <Compile Include="Behavior\PrivacySteps.cs" />
     <Compile Include="Behavior\User.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>User.feature</DependentUpon>
     </Compile>
-    <Compile Include="Behavior\AccountAdministration.cs" />
+    <Compile Include="Behavior\AccountAdministrationSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThrowOutIntegrationTests.cs" />
   </ItemGroup>
