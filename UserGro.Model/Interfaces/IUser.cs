@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UserGro.Model.Interfaces
 {
-    public interface IUser
+    public interface IUser : ILocation
     {
         //this will be the ID
         string UserName { get; set; }
@@ -16,10 +16,10 @@ namespace UserGro.Model.Interfaces
         //ugly names - thank God we can ReSharper this later.
         bool AllowsMessagesFromNonFriends { get; set; }
 
-        IList<IUser> Friends { get; set; }
-        IList<IUser> AwaitingApproval { get; set; }
-        IList<IGroup> Groups { get; set; }
-        IList<IGroup> GroupsAdmin { get; set; }
+        IList<User> Friends { get; set; }
+        IList<User> AwaitingApproval { get; set; }
+        IList<Group> Groups { get; set; }
+        IList<Group> GroupsAdmin { get; set; }
         //things like facebook/twitter profiles, etc.
         IList<Identity> Identities { get; set; }
         IList<Event> EventsAttending { get; set; }
@@ -28,5 +28,6 @@ namespace UserGro.Model.Interfaces
         IList<Message> Messages { get; set; }
         IList<Message> ArchivedMessages { get; set; }
 
+        IUserViewModel ToViewModel();
     }
 }

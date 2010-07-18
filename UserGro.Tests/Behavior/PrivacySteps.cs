@@ -2,17 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Moq;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
+using UserGro.Model;
+using UserGro.Model.Interfaces;
+using UserGro.Model.Services;
 
 namespace UserGro.Tests.Behavior
 {
     [Binding]
     class PrivacySteps
     {
+        private User mainUser;
+        private User secondaryUser;
+
+        private User GetUser()
+        {
+            var user = new User();
+            user.Name = "Michael Bluth";
+            user.Email = "michael@thebluthcompany.net";
+            user.AllowsMessagesFromNonFriends = true;
+            user.ProfileForFriendsOnly = false;
+            user.RequiresApprovalToFriend = false;
+            user.UserName = "michaelbluth";
+            user.State = "CA";
+            user.City = "Los Angeles";
+            user.PostalCode = 91039;
+            user.StreetAddress = "123 Housing Development Drive";
+
+            return user;
+        }
+
         [Given(@"I am a user that allows friends only to view page")]
         public void GivenIAmAUserThatAllowsFriendsOnlyToViewPage()
         {
-            ScenarioContext.Current.Pending();
+            mainUser = GetUser();
+            mainUser.ProfileForFriendsOnly = true;
         }
 
         [Given(@"I am a user that requires authentication to be my friend")]
@@ -112,13 +138,19 @@ namespace UserGro.Tests.Behavior
         [When(@"a nonfriend requests my information")]
         public void WhenANonfriendRequestsMyInformation()
         {
-            ScenarioContext.Current.Pending();
+            secondaryUser=  GetUser();
+            secondaryUser.Name = "Tobias Funke";
+            secondaryUser.UserName = "blueman99";
         }
 
         [When(@"a friend requests my information")]
         public void WhenAFriendRequestsMyInformation()
         {
-            ScenarioContext.Current.Pending();
+            secondaryUser = GetUser();
+            secondaryUser.Name = "Tobias Funke";
+            secondaryUser.UserName = "blueman99";
+
+            mainUser.AddFriend(secondaryUser);
         }
 
         [When(@"a friend requests to be my friend")]
@@ -166,13 +198,37 @@ namespace UserGro.Tests.Behavior
         [Then(@"only basic information is returned")]
         public void ThenOnlyBasicInformationIsReturned()
         {
-            ScenarioContext.Current.Pending();
+            //mocking
+            var repo = new Mock<IRepository<User>>();
+            repo.Setup(x => x.GetOneByName(It.IsAny<string>())).Returns(mainUser);
+
+            //only the name should be shown.
+            var svc = new UserService(repo.Object);
+            var user = svc.GetProfileAsUser(mainUser.UserName, secondaryUser);
+            
+            Assert.IsNullOrEmpty(user.Email);
+            Assert.AreEqual(0, user.Friends.Count);
+            Assert.AreEqual(0, user.EventsAttending.Count);
+            Assert.AreEqual(0, user.Groups.Count);
+            Assert.AreEqual(0, user.Talks.Count);
+            Assert.AreEqual(mainUser.Name, user.Name);
+            Assert.AreEqual(mainUser.UserName, mainUser.UserName);
         }
 
         [Then(@"my full profile information is displayed")]
         public void ThenMyFullProfileInformationIsDisplayed()
         {
-            ScenarioContext.Current.Pending();
+            var mocky = new Mock<IRepository<User>>();
+            mocky.Setup(x => x.GetOneByName(It.IsAny<string>())).Returns(mainUser);
+
+            var svc = new UserService(mocky.Object);
+            var user = svc.GetProfileAsUser("michaelbluth", secondaryUser);
+
+            //basically make sure they have full profile access.
+            Assert.AreEqual(mainUser.Name, user.Name);
+            Assert.AreEqual(mainUser.Email, user.Email);
+            Assert.AreEqual(mainUser.UserName, user.UserName);
+
         }
 
         [Then(@"they are added to awaiting approval")]
