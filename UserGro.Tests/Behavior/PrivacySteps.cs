@@ -29,7 +29,7 @@ namespace UserGro.Tests.Behavior
             user.State = "CA";
             user.City = "Los Angeles";
             user.PostalCode = 91039;
-            user.StreetAddress = "123 Housing Development Drive";
+            user.StreetAddress = "123 Sudden Valley Drive";
 
             return user;
         }
