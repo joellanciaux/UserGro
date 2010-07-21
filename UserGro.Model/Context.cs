@@ -6,6 +6,7 @@ namespace UserGro.Model
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         //methods
         protected override void OnModelCreating(System.Data.Entity.ModelConfiguration.ModelBuilder modelBuilder)
