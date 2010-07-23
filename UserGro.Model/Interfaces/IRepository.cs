@@ -6,7 +6,7 @@ namespace UserGro.Model.Interfaces
     {
         IList<T> GetAll();
         IList<T> Find(string queryString);
-        T GetOne(string Id);
+        T GetOne(string id);
         T GetOneByName(string name);
         T Save(T item);
         bool Delete(T item);

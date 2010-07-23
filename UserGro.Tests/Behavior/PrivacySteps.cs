@@ -16,8 +16,9 @@ namespace UserGro.Tests.Behavior
     {
         private User mainUser;
         private User secondaryUser;
+        private Event groupEvent;
 
-        private User GetUser()
+        private User GetPrimaryUser()
         {
             var user = new User();
             user.Name = "Michael Bluth";
@@ -29,34 +30,67 @@ namespace UserGro.Tests.Behavior
             user.State = "CA";
             user.City = "Los Angeles";
             user.PostalCode = 91039;
-            user.StreetAddress = "123 Housing Development Drive";
+            user.StreetAddress = "123 Sudden Valley Drive";
 
             return user;
+        }
+
+        private User GetSecondaryUser()
+        {
+            var user = new User();
+            user.Name = "Tobias Fünke"; // Bonus umlaut
+            user.Email = "tobias@tobiasisqueenmary.net";
+            user.AllowsMessagesFromNonFriends = true;
+            user.ProfileForFriendsOnly = false;
+            user.RequiresApprovalToFriend = false;
+            user.UserName = "blueman99";
+            user.State = "CA";
+            user.City = "Los Angeles";
+            user.PostalCode = 91039;
+            user.StreetAddress = "123 Sudden Valley Drive";
+
+            return user;
+        }
+
+        private Event GetEvent()
+        {
+            var groupEvent = new Event();
+            groupEvent.State = "CA";
+            groupEvent.City = "Los Angeles";
+            groupEvent.Country = "USA";
+            groupEvent.PostalCode = 91039;
+            groupEvent.StreetAddress = "";
+            groupEvent.WebAddress = "Blue Men Support Group";
+            groupEvent.StartDate = DateTime.Now.AddDays(14);
+            groupEvent.OnlineOnly = false;
+
+            return groupEvent;
         }
 
         [Given(@"I am a user that allows friends only to view page")]
         public void GivenIAmAUserThatAllowsFriendsOnlyToViewPage()
         {
-            mainUser = GetUser();
+            mainUser = GetPrimaryUser();
             mainUser.ProfileForFriendsOnly = true;
         }
 
         [Given(@"I am a user that requires authentication to be my friend")]
         public void GivenIAmAUserThatRequiresAuthenticationToBeMyFriend()
         {
-            ScenarioContext.Current.Pending();
+            mainUser = GetPrimaryUser();
+            mainUser.RequiresApprovalToFriend = true;
         }
 
         [Given(@"I am a user that does NOT require authentication to be my friend")]
         public void GivenIAmAUserThatDoesNOTRequireAuthenticationToBeMyFriend()
         {
-            ScenarioContext.Current.Pending();
+            mainUser = GetPrimaryUser();
         }
 
         [Given(@"I am a user that is not part of the local \.NET group")]
         public void GivenIAmAUserThatIsNotPartOfTheLocal_NETGroup()
         {
-            ScenarioContext.Current.Pending();
+            mainUser = GetPrimaryUser();
         }
 
         [Given(@"I am a user that wants to attend a local day of \.NET")]
@@ -138,24 +172,22 @@ namespace UserGro.Tests.Behavior
         [When(@"a nonfriend requests my information")]
         public void WhenANonfriendRequestsMyInformation()
         {
-            secondaryUser=  GetUser();
-            secondaryUser.Name = "Tobias Funke";
-            secondaryUser.UserName = "blueman99";
+            secondaryUser = GetSecondaryUser();
         }
 
         [When(@"a friend requests my information")]
         public void WhenAFriendRequestsMyInformation()
         {
-            secondaryUser = GetUser();
-            secondaryUser.Name = "Tobias Funke";
-            secondaryUser.UserName = "blueman99";
-
+            secondaryUser = GetSecondaryUser();
             mainUser.AddFriend(secondaryUser);
         }
 
         [When(@"a friend requests to be my friend")]
         public void WhenAFriendRequestsToBeMyFriend()
         {
+            secondaryUser = GetSecondaryUser();
+            mainUser.AddFriend(secondaryUser);
+
             ScenarioContext.Current.Pending();
         }
 

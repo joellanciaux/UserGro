@@ -34,7 +34,10 @@
     <Reference Include="AutoMapper">
       <HintPath>..\Lib\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.Entity.CTP, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Data.Entity.CTP, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.Data.Entity.CTP.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,7 +59,9 @@
     <Compile Include="Interfaces\IUserViewModel.cs" />
     <Compile Include="Interfaces\Online.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Talk.cs" />
     <Compile Include="User.cs" />

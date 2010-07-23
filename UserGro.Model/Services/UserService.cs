@@ -28,6 +28,7 @@ namespace UserGro.Model.Services
         {
             return _repo.GetOneByName(userName);
         }
+
         public IUserViewModel GetProfileAsUser(string userName, IUser requestingUser)
         {
             //get the user by user name
