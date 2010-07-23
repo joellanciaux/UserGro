@@ -22,11 +22,13 @@ namespace UserGro.Model.Helpers
             Context = new Context(); 
         }
 
+        //HACK: not quite sure how to test this. 
         public static ContextPerRequest Instance
         {
             get
             {
                 var items = HttpContext.Current.Items;
+
                 if(!items.Contains("RequestContext"))
                 {
                     items["RequestContext"] = new ContextPerRequest();
