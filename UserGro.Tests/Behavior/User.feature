@@ -18,15 +18,27 @@ Scenario: Privacy respected
 
 	Given I am a user that requires authentication to be my friend
 	When a friend requests to be my friend
-	Then nothing happens
+	Then they are not added to my friends list twice
 
 	Given I am a user that does NOT require authentication to be my friend
 	When a user requests to be my friend 
 	Then they are added to my friends list
+	And I am added to their friend list
 
 	Given I am a user that does NOT require authentication to be my friend
-	When a user requests to be my friend 
-	Then nothing happens 
+	When a friend requests to be my friend 
+	Then they are not added to my friends list twice
+
+	Given I am a user that has a friend in my awaiting confirmation list
+	When I approve the friend
+	Then the friend is added to my friends list
+	And is no longer in my awaiting confirmation list 
+
+	Given I am a user that has a friend in my awaiting confirmation list 
+	And the user is somehow in my friend list
+	When I approve the friend
+	Then the friend is still only in my friends list once
+	And is no longer in my awaiting confirmation list
 
 	Given I am a user that is not part of the local .NET group
 	When I attempt to join the group
@@ -34,8 +46,8 @@ Scenario: Privacy respected
 	Then it is added to my groups
 
 	Given I am a user that is not part of the local .NET group
-	When I attempt to join the group
-	And the group DOES require approval
+	When the group DOES require approval
+	And I attempt to join the group
 	Then I am added to the groups Awaiting approval
 	
 	Given I am a user that wants to attend a local day of .NET 

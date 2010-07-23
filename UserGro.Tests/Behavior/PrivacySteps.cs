@@ -16,7 +16,8 @@ namespace UserGro.Tests.Behavior
     {
         private User mainUser;
         private User secondaryUser;
-        private Event groupEvent;
+        private Event mainEvent;
+        private Group group; 
 
         private User GetPrimaryUser()
         {
@@ -60,11 +61,26 @@ namespace UserGro.Tests.Behavior
             groupEvent.Country = "USA";
             groupEvent.PostalCode = 91039;
             groupEvent.StreetAddress = "";
-            groupEvent.WebAddress = "Blue Men Support Group";
+            groupEvent.WebAddress = "MAGIC SHOW!!!!";
             groupEvent.StartDate = DateTime.Now.AddDays(14);
             groupEvent.OnlineOnly = false;
 
             return groupEvent;
+        }
+
+        private Group GetGroup()
+        {
+            return new Group
+                            {
+                                City = "Los Angeles",
+                                Country = "USA",
+                                Name = "Blue Man Group",
+                                OnlineOnly = false,
+                                PostalCode = 91039,
+                                State = "CA",
+                                StreetAddress = "1234 Hidden Valley",
+                                WebAddress = "http://www.somesite.com"
+                            };
         }
 
         [Given(@"I am a user that allows friends only to view page")]
@@ -117,6 +133,17 @@ namespace UserGro.Tests.Behavior
             ScenarioContext.Current.Pending();
         }
 
+        [Given(@"I am a user that has a friend in my awaiting confirmation list")]
+        public void GivenIAmAUserThatHasAFriendInMyAwaitingConfirmationList()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Given(@"the user is somehow in my friend list")]
+        public void GivenTheUserIsSomehowInMyFriendList()
+        {
+            ScenarioContext.Current.Pending();
+        }
         [When(@"I create an event")]
         public void WhenICreateAnEvent()
         {
@@ -187,32 +214,31 @@ namespace UserGro.Tests.Behavior
         {
             secondaryUser = GetSecondaryUser();
             mainUser.AddFriend(secondaryUser);
-
-            ScenarioContext.Current.Pending();
         }
 
         [When(@"a user requests to be my friend")]
         public void WhenAUserRequestsToBeMyFriend()
         {
-            ScenarioContext.Current.Pending();
+            secondaryUser.AddFriend(mainUser); 
         }
 
         [When(@"the group does not require approval")]
         public void WhenTheGroupDoesNotRequireApproval()
         {
-            ScenarioContext.Current.Pending();
+            group.RequiresApproval = false;
         }
 
         [When(@"I attempt to join the group")]
         public void WhenIAttemptToJoinTheGroup()
         {
-            ScenarioContext.Current.Pending();
+            group = GetGroup();
+            mainUser.AddGroup(group);
         }
 
         [When(@"the group DOES require approval")]
         public void WhenTheGroupDOESRequireApproval()
         {
-            ScenarioContext.Current.Pending();
+            group.RequiresApproval = true;
         }
 
         [When(@"I attempt to register for the event")]
@@ -227,6 +253,29 @@ namespace UserGro.Tests.Behavior
             ScenarioContext.Current.Pending();
         }
 
+        [When(@"I approve the friend")]
+        public void WhenIApproveTheFriend()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the friend is added to my friends list")]
+        public void ThenTheFriendIsAddedToMyFriendsList()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"is no longer in my awaiting confirmation list")]
+        public void ThenIsNoLongerInMyAwaitingConfirmationList()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the friend is still only in my friends list once")]
+        public void ThenTheFriendIsStillOnlyInMyFriendsListOnce()
+        {
+            ScenarioContext.Current.Pending();
+        }
         [Then(@"only basic information is returned")]
         public void ThenOnlyBasicInformationIsReturned()
         {
@@ -266,37 +315,43 @@ namespace UserGro.Tests.Behavior
         [Then(@"they are added to awaiting approval")]
         public void ThenTheyAreAddedToAwaitingApproval()
         {
-            ScenarioContext.Current.Pending();
+            Assert.That(mainUser.ConfirmFriends.Contains(secondaryUser));
         }
 
         [Then(@"not added to friends")]
         public void ThenNotAddedToFriends()
         {
-            ScenarioContext.Current.Pending();
+             Assert.That(!mainUser.Friends.Contains(secondaryUser));
         }
 
         [Then(@"they are added to my friends list")]
         public void ThenTheyAreAddedToMyFriendsList()
         {
-            ScenarioContext.Current.Pending();
+            Assert.That(mainUser.Friends.Contains(secondaryUser));
         }
 
-        [Then(@"nothing happens")]
-        public void ThenNothingHappens()
+        [Then(@"I am added to their friend list")]
+        public void ThenIAmAddedToTheirFriendList()
         {
-            ScenarioContext.Current.Pending();
+            Assert.That(secondaryUser.Friends.Contains(mainUser));
+        }
+        [Then(@"they are not added to my friends list twice")]
+        public void ThenTheyAreNotAddedToMyFriendsListTwice()
+        {
+            Assert.That(mainUser.Friends.Count == 1); 
+            Assert.That(mainUser.Friends.Contains(secondaryUser));
         }
 
         [Then(@"it is added to my groups")]
         public void ThenItIsAddedToMyGroups()
         {
-            ScenarioContext.Current.Pending();
+            Assert.That(mainUser.Groups.Contains(group));
         }
 
         [Then(@"I am added to the groups Awaiting approval")]
         public void ThenIAmAddedToTheGroupsAwaitingApproval()
         {
-            ScenarioContext.Current.Pending();
+            Assert.That(!mainUser.Groups.Contains(group));
         }
 
         [Then(@"I am added to the event's attendee's")]

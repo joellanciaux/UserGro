@@ -84,98 +84,118 @@ testRunner.Given("I am a user that requires authentication to be my friend");
 #line 20
 testRunner.When("a friend requests to be my friend");
 #line 21
-testRunner.Then("nothing happens");
+testRunner.Then("they are not added to my friends list twice");
 #line 23
 testRunner.Given("I am a user that does NOT require authentication to be my friend");
 #line 24
 testRunner.When("a user requests to be my friend");
 #line 25
 testRunner.Then("they are added to my friends list");
-#line 27
-testRunner.Given("I am a user that does NOT require authentication to be my friend");
+#line 26
+testRunner.And("I am added to their friend list");
 #line 28
-testRunner.When("a user requests to be my friend");
+testRunner.Given("I am a user that does NOT require authentication to be my friend");
 #line 29
-testRunner.Then("nothing happens");
-#line 31
-testRunner.Given("I am a user that is not part of the local .NET group");
+testRunner.When("a friend requests to be my friend");
+#line 30
+testRunner.Then("they are not added to my friends list twice");
 #line 32
-testRunner.When("I attempt to join the group");
+testRunner.Given("I am a user that has a friend in my awaiting confirmation list");
 #line 33
-testRunner.And("the group does not require approval");
+testRunner.When("I approve the friend");
 #line 34
-testRunner.Then("it is added to my groups");
-#line 36
-testRunner.Given("I am a user that is not part of the local .NET group");
+testRunner.Then("the friend is added to my friends list");
+#line 35
+testRunner.And("is no longer in my awaiting confirmation list");
 #line 37
-testRunner.When("I attempt to join the group");
+testRunner.Given("I am a user that has a friend in my awaiting confirmation list");
 #line 38
-testRunner.And("the group DOES require approval");
+testRunner.And("the user is somehow in my friend list");
 #line 39
-testRunner.Then("I am added to the groups Awaiting approval");
+testRunner.When("I approve the friend");
+#line 40
+testRunner.Then("the friend is still only in my friends list once");
 #line 41
-testRunner.Given("I am a user that wants to attend a local day of .NET");
-#line 42
-testRunner.When("I attempt to register for the event");
+testRunner.And("is no longer in my awaiting confirmation list");
 #line 43
-testRunner.And("there is still room to join the event");
+testRunner.Given("I am a user that is not part of the local .NET group");
 #line 44
-testRunner.Then("I am added to the event\'s attendee\'s");
+testRunner.When("I attempt to join the group");
 #line 45
-testRunner.And("the event is added to my EventsAttending");
-#line 47
-testRunner.Given("I am a user that wants to start an event");
+testRunner.And("the group does not require approval");
+#line 46
+testRunner.Then("it is added to my groups");
 #line 48
-testRunner.When("I create an event");
+testRunner.Given("I am a user that is not part of the local .NET group");
 #line 49
-testRunner.Then("it gets added to my events admin");
+testRunner.When("the group DOES require approval");
 #line 50
-testRunner.And("it gets added to my events attending");
-#line 52
-testRunner.Given("I am a user that is an event admin");
+testRunner.And("I attempt to join the group");
+#line 51
+testRunner.Then("I am added to the groups Awaiting approval");
 #line 53
-testRunner.When("I remove an attendee");
+testRunner.Given("I am a user that wants to attend a local day of .NET");
 #line 54
-testRunner.Then("they are no longer in the list of those coming");
+testRunner.When("I attempt to register for the event");
+#line 55
+testRunner.And("there is still room to join the event");
 #line 56
-testRunner.Given("I am a user that is an event admin");
+testRunner.Then("I am added to the event\'s attendee\'s");
 #line 57
-testRunner.When("I promote another user to admin the event");
-#line 58
-testRunner.Then("they are promoted to admin");
+testRunner.And("the event is added to my EventsAttending");
+#line 59
+testRunner.Given("I am a user that wants to start an event");
 #line 60
-testRunner.Given("I am a user logged into the system");
+testRunner.When("I create an event");
 #line 61
-testRunner.When("I send a message to another user");
+testRunner.Then("it gets added to my events admin");
 #line 62
-testRunner.And("I am not their friend");
-#line 63
-testRunner.And("they allow messages to be sent to them from nonfriends");
+testRunner.And("it gets added to my events attending");
 #line 64
-testRunner.Then("my message is in their inbox");
+testRunner.Given("I am a user that is an event admin");
+#line 65
+testRunner.When("I remove an attendee");
 #line 66
-testRunner.Given("I am a user logged into the system");
-#line 67
-testRunner.When("I send a message to another user");
+testRunner.Then("they are no longer in the list of those coming");
 #line 68
-testRunner.And("I am not their friend");
+testRunner.Given("I am a user that is an event admin");
 #line 69
-testRunner.And("they do NOT allow messages to be sent to them from nonfriends");
+testRunner.When("I promote another user to admin the event");
 #line 70
-testRunner.Then("my message is NOT in their inbox");
+testRunner.Then("they are promoted to admin");
 #line 72
 testRunner.Given("I am a user logged into the system");
 #line 73
 testRunner.When("I send a message to another user");
 #line 74
-testRunner.And("the user is my friend");
+testRunner.And("I am not their friend");
 #line 75
+testRunner.And("they allow messages to be sent to them from nonfriends");
+#line 76
 testRunner.Then("my message is in their inbox");
-#line 77
-testRunner.Given("I am a user logged into the system");
 #line 78
-testRunner.When("I send a message to a non-existant user");
+testRunner.Given("I am a user logged into the system");
 #line 79
+testRunner.When("I send a message to another user");
+#line 80
+testRunner.And("I am not their friend");
+#line 81
+testRunner.And("they do NOT allow messages to be sent to them from nonfriends");
+#line 82
+testRunner.Then("my message is NOT in their inbox");
+#line 84
+testRunner.Given("I am a user logged into the system");
+#line 85
+testRunner.When("I send a message to another user");
+#line 86
+testRunner.And("the user is my friend");
+#line 87
+testRunner.Then("my message is in their inbox");
+#line 89
+testRunner.Given("I am a user logged into the system");
+#line 90
+testRunner.When("I send a message to a non-existant user");
+#line 91
 testRunner.Then("I receive an exception");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -186,61 +206,61 @@ testRunner.Then("I receive an exception");
         public virtual void AccountAdministration()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Account administration", ((string[])(null)));
-#line 81
-this.ScenarioSetup(scenarioInfo);
-#line 83
-testRunner.Given("I am a potential user");
-#line 84
-testRunner.When("I sign up for an account that is available");
-#line 85
-testRunner.Then("it is given to me");
-#line 87
-testRunner.Given("I am a potential user");
-#line 88
-testRunner.When("I sign up for an account that is not available");
-#line 89
-testRunner.Then("it will not allow me to have that account");
-#line 91
-testRunner.Given("I am an existing user");
-#line 92
-testRunner.And("I change my email address");
 #line 93
-testRunner.And("the email address is not associated with another account");
-#line 94
-testRunner.Then("the change is set in the system");
+this.ScenarioSetup(scenarioInfo);
+#line 95
+testRunner.Given("I am a potential user");
 #line 96
-testRunner.Given("I am an existing user");
+testRunner.When("I sign up for an account that is available");
 #line 97
-testRunner.And("I change my email address");
-#line 98
-testRunner.And("the email address is associated with another user");
+testRunner.Then("it is given to me");
 #line 99
-testRunner.Then("no change is made");
+testRunner.Given("I am a potential user");
 #line 100
-testRunner.And("an exception is thrown");
-#line 102
-testRunner.Given("I am an existing user");
+testRunner.When("I sign up for an account that is not available");
+#line 101
+testRunner.Then("it will not allow me to have that account");
 #line 103
-testRunner.And("I change my RequiresApprovalToBeFriends");
+testRunner.Given("I am an existing user");
 #line 104
-testRunner.Then("the change is set in the system");
+testRunner.And("I change my email address");
+#line 105
+testRunner.And("the email address is not associated with another account");
 #line 106
-testRunner.Given("I am an existing user");
-#line 107
-testRunner.And("I change my profile to be visible to friends only");
+testRunner.Then("the change is set in the system");
 #line 108
-testRunner.Then("the change is set in the system");
-#line 110
 testRunner.Given("I am an existing user");
+#line 109
+testRunner.And("I change my email address");
+#line 110
+testRunner.And("the email address is associated with another user");
 #line 111
-testRunner.And("I change my profile to allow messages from non-friends");
+testRunner.Then("no change is made");
 #line 112
-testRunner.Then("the change is set in the system");
+testRunner.And("an exception is thrown");
 #line 114
 testRunner.Given("I am an existing user");
 #line 115
-testRunner.And("I change my name");
+testRunner.And("I change my RequiresApprovalToBeFriends");
 #line 116
+testRunner.Then("the change is set in the system");
+#line 118
+testRunner.Given("I am an existing user");
+#line 119
+testRunner.And("I change my profile to be visible to friends only");
+#line 120
+testRunner.Then("the change is set in the system");
+#line 122
+testRunner.Given("I am an existing user");
+#line 123
+testRunner.And("I change my profile to allow messages from non-friends");
+#line 124
+testRunner.Then("the change is set in the system");
+#line 126
+testRunner.Given("I am an existing user");
+#line 127
+testRunner.And("I change my name");
+#line 128
 testRunner.Then("the change is set in the system");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -251,27 +271,27 @@ testRunner.Then("the change is set in the system");
         public virtual void GroupAdministration()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Group administration", ((string[])(null)));
-#line 118
-this.ScenarioSetup(scenarioInfo);
-#line 120
-testRunner.Given("I am an existing user");
-#line 121
-testRunner.And("I am a group admin");
-#line 122
-testRunner.When("I need a speaker for a new event");
-#line 123
-testRunner.Then("I can push a notification that I am looking for speakers for that event");
-#line 125
-testRunner.Given("I am an existing user");
-#line 126
-testRunner.And("I am a group admin");
-#line 127
-testRunner.When("I try to create a new event for the group");
-#line 128
-testRunner.Then("the event is added to my events I\'m attending");
-#line 129
-testRunner.And("the group is added to events I\'m admin");
 #line 130
+this.ScenarioSetup(scenarioInfo);
+#line 132
+testRunner.Given("I am an existing user");
+#line 133
+testRunner.And("I am a group admin");
+#line 134
+testRunner.When("I need a speaker for a new event");
+#line 135
+testRunner.Then("I can push a notification that I am looking for speakers for that event");
+#line 137
+testRunner.Given("I am an existing user");
+#line 138
+testRunner.And("I am a group admin");
+#line 139
+testRunner.When("I try to create a new event for the group");
+#line 140
+testRunner.Then("the event is added to my events I\'m attending");
+#line 141
+testRunner.And("the group is added to events I\'m admin");
+#line 142
 testRunner.And("it is added to the other group\'s admins events admin");
 #line hidden
             testRunner.CollectScenarioErrors();

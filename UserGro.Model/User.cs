@@ -18,7 +18,7 @@ namespace UserGro.Model
         public bool ProfileForFriendsOnly { get; set; }
         public bool AllowsMessagesFromNonFriends { get; set; }
         public virtual IList<User> Friends { get; set; }
-        public IList<User> AwaitingApproval { get; set; }
+        public IList<User> ConfirmFriends { get; set; }
         public virtual IList<Group> Groups { get; set; }
         public IList<Group> GroupsAdmin { get; set; }
         public IList<Identity> Identities { get; set; }
@@ -32,7 +32,7 @@ namespace UserGro.Model
         public User()
         {
             Friends = new List<User>();
-            AwaitingApproval = new List<User>();
+            ConfirmFriends = new List<User>();
             Groups = new List<Group>();
             Messages = new List<Message>();
             GroupsAdmin = new List<Group>();
@@ -57,11 +57,36 @@ namespace UserGro.Model
             return Mapper.Map<IUser, IUserViewModel>(this);
         }
 
-        public User AddFriend(User secondaryUser)
+        public User AddFriend(User friendRequest)
         {
-            this.Friends.Add(secondaryUser);
-            secondaryUser.Friends.Add(this);
+            if (friendRequest.RequiresApprovalToFriend)
+            {
+                friendRequest.ConfirmFriends.Add(this);
+                return this;
+            }
+
+            this.Friends.Add(friendRequest);
+            friendRequest.Friends.Add(this);
             return this;
+        }
+
+        public User ConfirmFriend(User newFriend)
+        {
+            throw new NotImplementedException();     
+        }
+
+        public User AddGroup(Group group)
+        {
+            if (group.RequiresApproval)
+            {
+                group.AwaitingApproval.Add(this);
+                return this;
+            }
+
+            group.Users.Add(this);
+            this.Groups.Add(group);
+
+            return this; 
         }
     }
 }
