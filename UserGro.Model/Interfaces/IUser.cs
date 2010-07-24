@@ -17,7 +17,7 @@ namespace UserGro.Model.Interfaces
         bool AllowsMessagesFromNonFriends { get; set; }
 
         IList<User> Friends { get; set; }
-        IList<User> ConfirmFriends { get; set; }
+        IList<User> FriendsConfirmation { get; set; }
         IList<Group> Groups { get; set; }
         IList<Group> GroupsAdmin { get; set; }
         //things like facebook/twitter profiles, etc.

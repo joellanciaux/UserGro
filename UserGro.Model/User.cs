@@ -18,7 +18,7 @@ namespace UserGro.Model
         public bool ProfileForFriendsOnly { get; set; }
         public bool AllowsMessagesFromNonFriends { get; set; }
         public virtual IList<User> Friends { get; set; }
-        public IList<User> ConfirmFriends { get; set; }
+        public IList<User> FriendsConfirmation { get; set; }
         public virtual IList<Group> Groups { get; set; }
         public IList<Group> GroupsAdmin { get; set; }
         public IList<Identity> Identities { get; set; }
@@ -32,7 +32,7 @@ namespace UserGro.Model
         public User()
         {
             Friends = new List<User>();
-            ConfirmFriends = new List<User>();
+            FriendsConfirmation = new List<User>();
             Groups = new List<Group>();
             Messages = new List<Message>();
             GroupsAdmin = new List<Group>();
@@ -57,11 +57,11 @@ namespace UserGro.Model
             return Mapper.Map<IUser, IUserViewModel>(this);
         }
 
-        public User AddFriend(User friendRequest)
+        public User AddFriendRequest(User friendRequest)
         {
             if (friendRequest.RequiresApprovalToFriend)
             {
-                friendRequest.ConfirmFriends.Add(this);
+                friendRequest.FriendsConfirmation.Add(this);
                 return this;
             }
 
@@ -70,12 +70,33 @@ namespace UserGro.Model
             return this;
         }
 
-        public User ConfirmFriend(User newFriend)
+        /// <summary>
+        /// This adds the friend if it's not already in the list of friends
+        /// </summary>
+        /// <param name="friend"></param>
+        internal void AddFriend(User friend)
         {
-            throw new NotImplementedException();     
+            if (!this.Friends.Contains(friend))
+            {
+                this.Friends.Add(friend);
+            }
         }
 
-        public User AddGroup(Group group)
+        public User ConfirmFriend(User newFriend)
+        {
+            if(this.FriendsConfirmation.Contains(newFriend))
+            {
+
+                this.AddFriend(newFriend);
+                newFriend.AddFriend(this);
+
+                this.FriendsConfirmation.Remove(newFriend);
+            }
+
+            return this;
+        }
+
+        public User JoinGroup(Group group)
         {
             if (group.RequiresApproval)
             {
@@ -87,6 +108,25 @@ namespace UserGro.Model
             this.Groups.Add(group);
 
             return this; 
+        }
+
+        public User RegisterForEvent(Event eventToAttend)
+        {
+            if (!eventToAttend.HasAvailability())
+            {
+                //do nothing here | TODO: service should return some sort of notification
+                return this; 
+            }
+
+            if (eventToAttend.RequiresApproval)
+            {
+                eventToAttend.AwaitingApproval.Add(this);
+                return this;
+            }
+
+            eventToAttend.Attendees.Add(this);
+            EventsAttending.Add(eventToAttend);
+            return this;
         }
     }
 }
