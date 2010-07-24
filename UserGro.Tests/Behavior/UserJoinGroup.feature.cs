@@ -63,17 +63,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
 testRunner.Given("I am a user that is not part of the local blue man group");
 #line 8
-testRunner.When("I attempt to join the group");
-#line 9
 testRunner.And("the group does not require approval");
+#line 9
+testRunner.When("I attempt to join the group");
 #line 10
 testRunner.Then("it is added to my groups");
 #line 12
 testRunner.Given("I am a user that is not part of the local blue man group");
 #line 13
-testRunner.When("the group DOES require approval");
+testRunner.And("the group DOES require approval");
 #line 14
-testRunner.And("I attempt to join the group");
+testRunner.When("I attempt to join the group");
 #line 15
 testRunner.Then("I am added to the groups Awaiting approval");
 #line hidden

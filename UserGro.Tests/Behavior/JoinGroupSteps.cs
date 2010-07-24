@@ -16,22 +16,22 @@ namespace UserGro.Tests.Behavior
             setup();
         }
 
-        [When(@"I attempt to join the group")]
-        public void WhenIAttemptToJoinTheGroup()
-        {
-            michaelBluth.JoinGroup(blueManGroup);
-        }
-
-        [When(@"the group does not require approval")]
+        [Given(@"the group does not require approval")]
         public void WhenTheGroupDoesNotRequireApproval()
         {
             blueManGroup.RequiresApproval = false;
         }
 
-        [When(@"the group DOES require approval")]
+        [Given(@"the group DOES require approval")]
         public void WhenTheGroupDOESRequireApproval()
         {
             blueManGroup.RequiresApproval = true;
+        }
+
+        [When(@"I attempt to join the group")]
+        public void WhenIAttemptToJoinTheGroup()
+        {
+            michaelBluth.JoinGroup(blueManGroup);
         }
 
         [Then(@"it is added to my groups")]
