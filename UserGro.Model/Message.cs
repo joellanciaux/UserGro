@@ -7,9 +7,14 @@ namespace UserGro.Model
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public IList<User> UsersTo { get; set; }
-        public User UserFrom { get; set; }
+        public IList<User> Recipients { get; set; }
+        public User Sender { get; set; }
         public string MessageBody { get; set; }
         public DateTime SentTime { get; set; }
+
+        public Message()
+        {
+            Recipients = new List<User>();
+        }
     }
 }

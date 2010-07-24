@@ -26,8 +26,9 @@ namespace UserGro.Model
         public IList<Event> EventsAdmin { get; set; }
         public IList<Talk> Talks { get; set; }
         public IList<Message> Messages { get; set; }
+        public IList<Message> SentMessages { get; set; }
         public IList<Message> ArchivedMessages { get; set; }
-        public IList<Website> Websites { get; set;}
+        public IList<Website> Websites { get; set; }
 
         public User()
         {
@@ -43,6 +44,7 @@ namespace UserGro.Model
             Messages = new List<Message>();
             ArchivedMessages = new List<Message>();
             Websites = new List<Website>();
+            SentMessages = new List<Message>();
         }
 
         public string StreetAddress { get; set; }
@@ -84,7 +86,7 @@ namespace UserGro.Model
 
         public User ConfirmFriend(User newFriend)
         {
-            if(this.FriendsConfirmation.Contains(newFriend))
+            if (this.FriendsConfirmation.Contains(newFriend))
             {
 
                 this.AddFriend(newFriend);
@@ -107,7 +109,7 @@ namespace UserGro.Model
             group.Users.Add(this);
             this.Groups.Add(group);
 
-            return this; 
+            return this;
         }
 
         public User RegisterForEvent(Event eventToAttend)
@@ -115,7 +117,7 @@ namespace UserGro.Model
             if (!eventToAttend.HasAvailability())
             {
                 //do nothing here | TODO: service should return some sort of notification
-                return this; 
+                return this;
             }
 
             if (eventToAttend.RequiresApproval)
@@ -128,5 +130,33 @@ namespace UserGro.Model
             EventsAttending.Add(eventToAttend);
             return this;
         }
+
+        public User SendMessage(User recipient, Message message)
+        {
+            //bail
+            if ((recipient.AllowsMessagesFromNonFriends == false) && (!recipient.Friends.Contains(this)))
+           {
+                return this; 
+            }
+
+            recipient.Messages.Add(message);
+            this.SentMessages.Add(message);
+            message.Sender = this;
+            message.Recipients.Add(recipient);
+
+            return this;
+        }
+
+
+        public User SendMessage(User recipient, string message, string title)
+        {
+            Message msg = new Message();
+            msg.MessageBody = message;
+            msg.Title = title;
+            msg.SentTime = DateTime.Now;
+
+            return SendMessage(recipient, msg);
+        }
+
     }
 }

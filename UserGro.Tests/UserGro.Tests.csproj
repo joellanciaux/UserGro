@@ -80,6 +80,7 @@
     <Compile Include="Behavior\GroupAdministrationSteps.cs" />
     <Compile Include="Behavior\JoinEventSteps.cs" />
     <Compile Include="Behavior\JoinGroupSteps.cs" />
+    <Compile Include="Behavior\MessageSteps.cs" />
     <Compile Include="Behavior\PrivacySteps.cs" />
     <Compile Include="Behavior\UserJoinEvent.feature.cs">
       <AutoGen>True</AutoGen>

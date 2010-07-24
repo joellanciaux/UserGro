@@ -6,23 +6,21 @@
 Scenario: User Send Message
 
 	Given I am a user logged into the system 
-	When I send a message to another user
-	And I am not their friend
-	And they allow messages to be sent to them from nonfriends
+	And I am not friends with a certain user
+	And they allow messages to be sent from nonfriends
+	When I send a message to this user
 	Then my message is in their inbox
+	And is in my sent messages 
 
 	Given I am a user logged into the system 
-	When I send a message to another user
-	And I am not their friend
-	And they do NOT allow messages to be sent to them from nonfriends
+	And I am not friends with a certain user
+	And they do NOT allow messages to be sent from nonfriends
+	When I send a message to this user
 	Then my message is NOT in their inbox
+	And is NOT in my sent messages 
 
-	Given I am a user logged into the system
-	When I send a message to another user
-	And the user is my friend
+	Given I am a user logged into the system 
+	And I am friends with a certain user
+	When I send a message to this user
 	Then my message is in their inbox
-
-	Given I am a user logged into the system
-	When I send a message to a non-existant user
-	Then I receive an exception
-
+	And is in my sent messages
