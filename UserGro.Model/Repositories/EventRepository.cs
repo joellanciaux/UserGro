@@ -47,11 +47,14 @@ namespace UserGro.Model.Repositories
             Context.Events.Add(item);
             Context.SaveChanges();
 
-            return item; // ?
+            return item;
         }
 
         public bool Delete(Event item)
         {
+            if (!Context.Events.Contains(item))
+                return false;
+
             Context.Events.Remove(item);
             Context.SaveChanges();
 

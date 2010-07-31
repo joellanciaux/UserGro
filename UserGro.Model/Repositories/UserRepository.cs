@@ -44,11 +44,14 @@ namespace UserGro.Model.Repositories
         {
             Context.Users.Add(item);
             Context.SaveChanges();
-            return item; // ?
+            return item; 
         }
 
         public bool Delete(User item)
         {
+            if (!Context.Users.Contains(item))
+                return false;   
+
             Context.Users.Remove(item);
             Context.SaveChanges();
 
