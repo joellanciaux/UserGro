@@ -62,8 +62,10 @@
     <Compile Include="Interfaces\Online.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
+    <Compile Include="Repositories\GroupRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\EventService.cs" />
+    <Compile Include="Services\GroupServices.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Talk.cs" />
     <Compile Include="User.cs" />

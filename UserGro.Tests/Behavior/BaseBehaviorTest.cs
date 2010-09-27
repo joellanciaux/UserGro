@@ -5,11 +5,29 @@ namespace UserGro.Tests.Behavior
 {
     public class BaseBehaviorTest
     {
-        
+        protected bool setUp;
         protected User michaelBluth;
         protected User tobias;
+        protected User gobBluth;
         protected Event magicShow;
-        protected Group blueManGroup; 
+        protected Group blueManGroup;
+
+        protected User GetAdministratorUser()
+        {
+            return new User()
+                       {
+                           Name = "G.O.B. Bluth",
+                           Email = "resident@thebluthcompany.net",
+                           AllowsMessagesFromNonFriends = false,
+                           ProfileForFriendsOnly = true,
+                           RequiresApprovalToFriend = true,
+                           UserName = "mrbananagrabber",
+                           State = "CA",
+                           City = "Newport Beach",
+                           PostalCode = 92663,
+                           StreetAddress = "5124 Marina Street"
+                       };
+        }
 
         protected User GetPrimaryUser()
         {
@@ -78,10 +96,18 @@ namespace UserGro.Tests.Behavior
 
         public void setup()
         {
+            if (setUp)
+                return;
+
+            gobBluth = GetAdministratorUser();
             michaelBluth = GetPrimaryUser();
             tobias = GetSecondaryUser();
             blueManGroup = GetGroup();
             magicShow = GetEvent();
+
+            blueManGroup.Administrators.Add(gobBluth);
+
+            setUp = true;
         }
     }
 }

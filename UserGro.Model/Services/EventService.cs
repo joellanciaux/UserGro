@@ -26,6 +26,5 @@ namespace UserGro.Model.Services
             return _repo.GetOneByName(name);
         }
 
-        
     }
 }

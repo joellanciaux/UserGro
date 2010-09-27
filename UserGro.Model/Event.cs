@@ -21,6 +21,7 @@ namespace UserGro.Model
         public bool RequiresApproval { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public User Creator { get; set; }
         public IList<User> Attendees { get; set; }
         public IList<User> Administrators { get; set; }
         public IList<User> AwaitingApproval { get; set; }
