@@ -96,9 +96,6 @@ namespace UserGro.Tests.Behavior
 
         public void setup()
         {
-            if (setUp)
-                return;
-
             gobBluth = GetAdministratorUser();
             michaelBluth = GetPrimaryUser();
             tobias = GetSecondaryUser();
