@@ -1,6 +1,0 @@
-C:\projects\UserGro\UserGro.Model\bin\Debug\UserGro.Model.dll
-C:\projects\UserGro\UserGro.Model\bin\Debug\UserGro.Model.pdb
-C:\projects\UserGro\UserGro.Model\bin\Debug\AutoMapper.dll
-C:\projects\UserGro\UserGro.Model\obj\Debug\ResolveAssemblyReference.cache
-C:\projects\UserGro\UserGro.Model\obj\Debug\UserGro.Model.dll
-C:\projects\UserGro\UserGro.Model\obj\Debug\UserGro.Model.pdb
